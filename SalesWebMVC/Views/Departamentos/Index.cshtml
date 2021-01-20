@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<SalesWebMVC.Models.Departamento>
 
 @{
-    ViewData["Title"] = "Departamentos";
+    ViewData["Title"] = "Index";
 }
 
-<h2>Departamentos</h2>
+<h2>Index</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,10 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                @Html.DisplayNameFor(model => model.None)
             </th>
             <th></th>
         </tr>
@@ -25,15 +22,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.id)
+                @Html.DisplayFor(modelItem => item.None)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Detalhes", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Apagar", "Delete", new { /* id=item.PrimaryKey */ })
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
