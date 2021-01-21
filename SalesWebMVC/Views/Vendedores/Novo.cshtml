@@ -1,0 +1,34 @@
+﻿@model SalesWebMVC.Models.Vendedor
+@{
+    ViewData["Title"] = "Novo Vendedor";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<!--<h4>Vendedor</h4>-->
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Novo">
+            <div class="form-group">
+                <label asp-for="nome" class="control-label">Nome</label>
+                <input asp-for="nome" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="email" class="control-label">e-mail</label>
+                <input asp-for="email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="dataAnivesario" class="control-label">Data Aniversário</label>
+                <input asp-for="dataAnivesario" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="salarioBase" class="control-label">Salário Base</label>
+                <input asp-for="salarioBase" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btm btn-default">
+            </div>
+        </form>
+    </div>
+</div>

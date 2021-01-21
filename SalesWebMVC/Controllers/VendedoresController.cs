@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SalesWebMVC.Services;
+using SalesWebMVC.Models;
 
 namespace SalesWebMVC.Controllers
 {
@@ -22,5 +23,20 @@ namespace SalesWebMVC.Controllers
 
             return View(list);
         }
+
+        public IActionResult Novo()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Novo(Vendedor vendedor)
+        {
+            _sellerService.Insert(vendedor);
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
