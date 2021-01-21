@@ -5,16 +5,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using SalesWebMVC.Services;
 using SalesWebMVC.Models;
+using SalesWebMVC.Models.ViewModels;
 
 namespace SalesWebMVC.Controllers
 {
     public class VendedoresController : Controller
     {
         private readonly VendedorService _sellerService;
+        private readonly DepartamentoService _departamentoService;
 
-        public VendedoresController(VendedorService vendedorService)
+        public VendedoresController(VendedorService vendedorService, DepartamentoService departamentoService)
         {
             _sellerService = vendedorService;
+            _departamentoService = departamentoService;
         }
 
         public IActionResult Index()
@@ -26,8 +29,9 @@ namespace SalesWebMVC.Controllers
 
         public IActionResult Novo()
         {
-
-            return View();
+            var departamentos = _departamentoService.FindAll();
+            var viewModel = new VendedorFormViewModel { Departamentos = departamentos };
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -37,6 +41,8 @@ namespace SalesWebMVC.Controllers
             _sellerService.Insert(vendedor);
             return RedirectToAction(nameof(Index));
         }
+
+
 
     }
 }

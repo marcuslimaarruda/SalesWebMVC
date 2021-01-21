@@ -23,6 +23,9 @@ namespace SalesWebMVC.Services
 
         public void Insert(Vendedor obj)
         {
+            //Gambiarra para não dar erro quanto não faz a tela de seleção do departamento.
+            //obj.Departamento = _context.Departamento.First();
+
             _context.Add(obj);
             _context.SaveChanges();
         }
