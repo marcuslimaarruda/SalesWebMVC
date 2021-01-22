@@ -34,6 +34,7 @@ namespace SalesWebMVC.Controllers
             return View(viewModel);
         }
 
+ 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public IActionResult Novo(Vendedor vendedor)
@@ -57,7 +58,6 @@ namespace SalesWebMVC.Controllers
 
             return View(obj);
         }
-
 
     }
 }
