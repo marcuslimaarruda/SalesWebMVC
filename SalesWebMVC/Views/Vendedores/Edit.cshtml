@@ -1,0 +1,40 @@
+﻿@model SalesWebMVC.Models.ViewModels.VendedorFormViewModel
+@{
+    ViewData["Title"] = "Editar Vendedor";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<!--<h4>Vendedor</h4>-->
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Vendedor.id" />
+
+            <div class="form-group">
+                <label asp-for="Vendedor.nome" class="control-label">Nome</label>
+                <input asp-for="Vendedor.nome" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Vendedor.email" class="control-label">e-mail</label>
+                <input asp-for="Vendedor.email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Vendedor.dataAnivesario" class="control-label">Data Aniversário</label>
+                <input asp-for="Vendedor.dataAnivesario" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Vendedor.salarioBase" class="control-label">Salário Base</label>
+                <input asp-for="Vendedor.salarioBase" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Vendedor.DepartamentoId" class="control-label">Departamento</label>
+                <select asp-for="Vendedor.DepartamentoId" asp-items="@(new SelectList(Model.Departamentos,"Id", "None"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btm btn-default">
+            </div>
+        </form>
+    </div>
+</div>

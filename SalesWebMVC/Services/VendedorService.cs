@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using SalesWebMVC.Models;
 using SalesWebMVC.Data;
 using Microsoft.EntityFrameworkCore;
+using SalesWebMVC.Services.Excepptions;
 
 namespace SalesWebMVC.Services
 {
@@ -41,6 +42,24 @@ namespace SalesWebMVC.Services
             var obj = _context.Vendedor.Find(id);
             _context.Vendedor.Remove(obj);
             _context.SaveChanges();
+        }
+
+        public void Update(Vendedor obj)
+        {
+            if (!_context.Vendedor.Any(x => x.id == obj.id))
+            {
+                throw new NotFoundException("Vendedor não foi localizado na base de dados!");
+            }
+            // Executa a atuaização.
+            try
+            {
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
         }
 
     }
