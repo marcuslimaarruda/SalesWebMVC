@@ -7,6 +7,7 @@ using SalesWebMVC.Services;
 using SalesWebMVC.Models;
 using SalesWebMVC.Models.ViewModels;
 using SalesWebMVC.Services.Excepptions;
+using System.Diagnostics;
 
 namespace SalesWebMVC.Controllers
 {
@@ -46,15 +47,16 @@ namespace SalesWebMVC.Controllers
 
         public IActionResult Delete(int? id)
         {
+
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Informado um identificador nulo." });
             }
 
             var obj = _sellerService.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Vendedor não foi localizado." });
             }
 
             return View(obj);
@@ -63,13 +65,13 @@ namespace SalesWebMVC.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Informado um identificador nulo." });
             }
 
             var obj = _sellerService.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Vendedor não foi localizado." });
             }
 
             return View(obj);
@@ -79,13 +81,13 @@ namespace SalesWebMVC.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Informado um identificador nulo." });
             }
 
             var obj = _sellerService.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Vendedor não foi localizado." });
             }
 
             List<Departamento> departamentos = _departamentoService.FindAll();
@@ -100,7 +102,7 @@ namespace SalesWebMVC.Controllers
         {
             if (id != vendedor.id)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = "Erro executando a solcitação." });
             }
 
             try
@@ -110,13 +112,24 @@ namespace SalesWebMVC.Controllers
             }
             catch (NotFoundException)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Erro atualizando vendedor. O vendedor não foi localizado." });
             }
             catch (DbConcurrencyException)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = "Erro atualizando vendedor. O banco de dados retornou um erro." });
             }
+        }
 
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Messsage = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+
+            return View(viewModel);
+            
         }
 
     }
