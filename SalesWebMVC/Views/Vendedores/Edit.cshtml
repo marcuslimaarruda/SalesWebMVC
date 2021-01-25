@@ -11,22 +11,26 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <input type="hidden" asp-for="Vendedor.id" />
-
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Vendedor.nome" class="control-label">Nome</label>
                 <input asp-for="Vendedor.nome" class="form-control" />
+                <span asp-validation-for="Vendedor.nome" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Vendedor.email" class="control-label">e-mail</label>
                 <input asp-for="Vendedor.email" class="form-control" />
+                <span asp-validation-for="Vendedor.email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Vendedor.dataAnivesario" class="control-label">Data Aniversário</label>
                 <input asp-for="Vendedor.dataAnivesario" class="form-control" />
+                <span asp-validation-for="Vendedor.dataAnivesario" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Vendedor.salarioBase" class="control-label">Salário Base</label>
                 <input asp-for="Vendedor.salarioBase" class="form-control" />
+                <span asp-validation-for="Vendedor.salarioBase" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Vendedor.DepartamentoId" class="control-label">Departamento</label>
@@ -38,3 +42,6 @@
         </form>
     </div>
 </div>
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

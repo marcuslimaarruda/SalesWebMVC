@@ -41,6 +41,15 @@ namespace SalesWebMVC.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult Novo(Vendedor vendedor)
         {
+            // Este if é para o caso da critica em javascript falhar 
+            // ele fica em loop devolvendo o mesmo objeto
+            if (!ModelState.IsValid)
+            {
+                var departamento = _departamentoService.FindAll();
+                var viewModel = new VendedorFormViewModel { Vendedor = vendedor, Departamentos = departamento };
+                return View(viewModel);
+            }
+
             _sellerService.Insert(vendedor);
             return RedirectToAction(nameof(Index));
         }
@@ -79,6 +88,7 @@ namespace SalesWebMVC.Controllers
 
         public IActionResult Edit(int? id)
         {
+
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Informado um identificador nulo." });
@@ -100,6 +110,15 @@ namespace SalesWebMVC.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult Edit(int id, Vendedor vendedor)
         {
+            // Este if é para o caso da critica em javascript falhar 
+            // ele fica em loop devolvendo o mesmo objeto
+            if (!ModelState.IsValid)
+            {
+                var departamento = _departamentoService.FindAll();
+                var viewModel = new VendedorFormViewModel { Vendedor = vendedor, Departamentos = departamento };
+                return View(viewModel);
+            }
+
             if (id != vendedor.id)
             {
                 return RedirectToAction(nameof(Error), new { message = "Erro executando a solcitação." });
